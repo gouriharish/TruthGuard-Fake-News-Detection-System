@@ -1,4 +1,4 @@
-/* Modern UI Theme for Fake News Detector */
+/* Modern Animated UI Theme for Fake News Detector */
 :root {
     --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     --card-bg: #ffffff;
@@ -21,15 +21,17 @@ body {
     color: var(--text-main);
 }
 
+/* ANIMATION: Makes the main card drift up and fade in smoothly on page load */
 .container {
     background: var(--card-bg);
     padding: 2.5rem;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     width: 100%;
     max-width: 600px;
     box-sizing: border-box;
     text-align: center;
+    animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 h1 {
@@ -54,8 +56,9 @@ textarea {
     font-size: 1rem;
     resize: none;
     box-sizing: border-box;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
     outline: none;
+    /* TRANSITION: Animates the border glow smoothly over 0.3 seconds */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 textarea:focus {
@@ -74,40 +77,66 @@ button {
     cursor: pointer;
     margin-top: 1.5rem;
     width: 100%;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    /* TRANSITION: Controls color change, shadow lift, and hover scaling */
+    transition: background-color 0.2s ease, transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s ease;
 }
 
+/* ANIMATION EFFECT: Button subtly lifts and gains a drop shadow on hover */
 button:hover {
     background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
 }
 
+/* ANIMATION EFFECT: Squeezes down slightly when clicked to feel like a physical button */
 button:active {
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.98);
 }
 
+/* ANIMATION: Causes the prediction alert box to slide up and reveal itself dynamically */
 .result-container {
     margin-top: 2rem;
     padding: 1rem;
     border-radius: 8px;
     font-size: 1.4rem;
     font-weight: 700;
-    animation: fadeIn 0.4s ease-out;
+    animation: slideUpReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Dynamic colors based on class context names */
 .result-real {
-    background-color: rgba(46, 196, 182, 0.15);
+    background-color: rgba(46, 196, 182, 0.12);
     color: var(--real-color);
     border: 1px solid rgba(46, 196, 182, 0.3);
 }
 
 .result-fake {
-    background-color: rgba(231, 29, 54, 0.15);
+    background-color: rgba(231, 29, 54, 0.12);
     color: var(--fake-color);
     border: 1px solid rgba(231, 29, 54, 0.3);
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+/* --- KEYFRAME TIMELINES --- */
+
+/* Timeline for the opening card lift */
+@keyframes cardEntrance {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Timeline for the dynamic result box revelation */
+@keyframes slideUpReveal {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
